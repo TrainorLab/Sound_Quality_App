@@ -68,6 +68,7 @@ class ScreenManagerApp(App):
         filename = 'responses_{}.json'.format(now.strftime('%Y-%m-%d_%H-%M-%S'))
         store = JsonStore(filename)
         store.put('naturalness', value=self.slider1.value)
+        
         store.put('sound_quality', value=self.slider2.value)
         self.sm.current = 'response'
         Clock.schedule_once(self.switch_back_to_main_screen, self.get_next_update_time())
