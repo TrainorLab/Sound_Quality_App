@@ -16,10 +16,10 @@ source.include_exts = py,png,jpg,kv,atlas
 version = 0.1
 
 # (add this line)
-requirements = kivy
+requirements = python3, kivy, datetime, pytz
 
 # (uncomment and set this to False)
-orientation = landscape
+orientation = Portrait
 
 # (add this line)
 fullscreen = 1
@@ -31,7 +31,7 @@ android.permissions = INTERNET
 android.arch = arm64-v8a
 
 # (add this line)
-android.api = 29
+android.api = 31
 
 # (add this line)
 android.minapi = 21
@@ -47,21 +47,3 @@ android.gradle_path = /path/to/gradle
 
 # (add this line)
 android.gradle_dependencies = 'com.android.support:appcompat-v7:21.0.3'
-
-# (add this line)
-android.signing.key_alias = keyalias
-
-# (add this line)
-android.signing.storetype = jks
-
-# (add this line)
-android.signing.storepass = storepassword
-
-# (add this line)
-android.signing.keypass = keypassword
-
-# (add this line)
-android.add_activity = com.yourcompany.yourapp.MainActivity:android:label=Your App Title
-
-# (add this line)
-android.add_meta_data = android:name=android.max_aspect:resource=@integer/aspect_ratio,android:value=2.1
