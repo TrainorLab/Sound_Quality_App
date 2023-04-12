@@ -36,14 +36,3 @@ android.api = 31
 # (add this line)
 android.minapi = 21
 
-# (add this line)
-android.sdk_path = /path/to/android/sdk
-
-# (add this line)
-android.ndk_path = /path/to/android/ndk
-
-# (add this line)
-android.gradle_path = /path/to/gradle
-
-# (add this line)
-android.gradle_dependencies = 'com.android.support:appcompat-v7:21.0.3'
