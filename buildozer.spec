@@ -4,7 +4,7 @@
 title = Sound_Quality_App
 
 # (add this line)
-package.name = com.yourcompany.yourapp
+package.name = soundqualityapp
 
 # (add this line)
 source.dir = .
@@ -65,12 +65,3 @@ android.add_activity = com.yourcompany.yourapp.MainActivity:android:label=Your A
 
 # (add this line)
 android.add_meta_data = android:name=android.max_aspect:resource=@integer/aspect_ratio,android:value=2.1
-
-# (add this line)
-android.add_gradle_plugin = com.android.application
-
-# (add this line)
-android.add_gradle_plugin = com.android.application
-
-# (add this line)
-android.gradle_dependencies = 'com.android.support:appcompat-v7:21.0.3'

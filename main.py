@@ -18,35 +18,44 @@ class ResponseScreen(Screen):
 
 class ScreenManagerApp(App):
     def build(self):
-        self.slider1 = Slider(min=1, max=5, value=3, )
+        
+        
+        self.slider1 = Slider(min=1, max=5, value=3)
         self.slider2 = Slider(min=1, max=5, value=3)
+        self.q1_text = Label(text='Please rate the previous 5 minutes on "naturalness" on a scale from 1-5', size_hint_y=None, height=20)     
+        self.q1_left_anchor = Label(text='1 (Least Natural)', halign = "left")
+        self.q1_right_anchor = Label(text='5 (Most Natural)', halign = "right")
+        self.q2_text = Label(text='Please rate the previous 5 minutes on "sound quality" on a scale from 1-5', size_hint_y=None, height=20)
+        self.q2_left_anchor = Label(text='1 (Worst)', halign = "left", valign = "bottom")
+        self.q2_right_anchor = Label(text='5 (Best)', halign = "right", valign = "bottom")
+
+        self.q1 = BoxLayout(orientation='vertical', size_hint_y=None, height=30)
+        self.q1.add_widget(self.q1_text)
         
-        self.label1_first_line = Label(text='Please rate the previous 5 minutes on "naturalness" on a scale from 1-5', size_hint_y=None, height=30)
-        self.label1_second_line = Label(text='1 (Least Natural)', halign = "left")
-        self.label1_third_line = Label(text='5 (Most Natural)', halign = "right")
+        self.q1_anchors = BoxLayout(orientation = 'horizontal', size_hint_y=None, height=10)   
+        self.q1_anchors.add_widget(self.q1_left_anchor)
+        self.q1_anchors.add_widget(self.q1_right_anchor)
+
+        self.q1_to_q2 = BoxLayout(orientation = 'vertical')
+        self.q1_to_q2.add_widget(self.slider1)
+        self.q1_to_q2.add_widget(self.q2_text)
+
+
+        self.q2_anchors = BoxLayout(orientation='horizontal', size_hint_y=None, height=30)
+        self.q2_anchors.add_widget(self.q2_left_anchor)
+        self.q2_anchors.add_widget(self.q2_right_anchor)
+
         
-        self.label2_first_line = Label(text='Please rate the previous 5 minutes on "sound quality" on a scale from 1-5', size_hint_y=None, height=30)
-        self.label2_second_line = Label(text='1 (Worst)', halign = "left")
-        self.label2_third_line = Label(text='5 (Best)', halign = "right")
-
-        self.scale1 = BoxLayout(orientation='horizontal', size_hint_y=None, height=30)
-        self.scale1.add_widget(self.label1_second_line)
-        self.scale1.add_widget(self.label1_third_line)
-
-        self.scale2 = BoxLayout(orientation='horizontal', size_hint_y=None, height=30)
-        self.scale2.add_widget(self.label2_second_line)
-        self.scale2.add_widget(self.label2_third_line)
-
         self.button = Button(text='Submit', on_press=self.submit)
         self.main_screen = MainScreen(name='main')
         self.main_screen_layout = BoxLayout(orientation='vertical', spacing=10)
         
-        self.main_screen_layout.add_widget(self.label1_first_line)
-        self.main_screen_layout.add_widget(self.slider1)
-        self.main_screen_layout.add_widget(self.scale1)
-        self.main_screen_layout.add_widget(self.label2_first_line)
+        
+        self.main_screen_layout.add_widget(self.q1)
+        self.main_screen_layout.add_widget(self.q1_anchors)
+        self.main_screen_layout.add_widget(self.q1_to_q2)
+        self.main_screen_layout.add_widget(self.q2_anchors)
         self.main_screen_layout.add_widget(self.slider2)
-        self.main_screen_layout.add_widget(self.scale2)
         self.main_screen_layout.add_widget(self.button)
         
         self.main_screen.add_widget(self.main_screen_layout)
