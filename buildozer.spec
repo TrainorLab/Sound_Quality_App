@@ -19,7 +19,7 @@ version = 0.1
 requirements = python3, kivy, datetime, pytz
 
 # (uncomment and set this to False)
-orientation = Portrait
+orientation = portrait
 
 # (add this line)
 fullscreen = 1
