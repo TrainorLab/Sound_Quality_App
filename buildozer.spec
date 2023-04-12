@@ -4,7 +4,7 @@
 title = Sound_Quality_App
 
 # (add this line)
-package.name = soundqualityapp
+package.name = sound.quality.app
 
 # (add this line)
 source.dir = .
