@@ -25,7 +25,7 @@ orientation = portrait
 fullscreen = 1
 
 # (add this line)
-android.permissions = INTERNET
+android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE
 
 # (add this line)
 android.arch = arm64-v8a

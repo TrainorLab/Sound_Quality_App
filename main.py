@@ -9,6 +9,8 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 import datetime
 import pytz
+import os
+import platform
 
 class MainScreen(Screen):
     pass
@@ -74,7 +76,17 @@ class ScreenManagerApp(App):
 
     def submit(self, instance):
         now = datetime.datetime.now(pytz.utc).astimezone(pytz.timezone('US/Eastern'))
-        filename = 'responses_{}.json'.format(now.strftime('%Y-%m-%d_%H-%M-%S'))
+        if platform.system() == 'Windows':
+            base_dir = 'C:\\AppData\\Android\\SoundQualityApp'
+        elif platform.system() == 'Android':
+            base_dir = '/storage/emulated/0/SoundQualityApp'
+        else:
+            # Add handling for other platforms if needed
+            pass
+        
+        # Create the filename with timestamp
+        filename = os.path.join(base_dir, 'responses_{}.json'.format(now.strftime('%Y-%m-%d_%H-%M-%S')))
+        
         store = JsonStore(filename)
         store.put('naturalness', value=self.slider1.value)
         
