@@ -94,6 +94,13 @@ class ScreenManagerApp(App):
         self.sm.current = 'response'
         Clock.schedule_once(self.switch_back_to_main_screen, self.get_next_update_time())
 
+    def on_start(self):
+        # Schedule the screen refresh at regular intervals
+       Clock.schedule_interval(self.update_screen, 1) # 1 second interval
+
+    def update_screen(self, dt):
+        # Update the screen with current time
+        now = datetime.datetime.now(pytz.timezone('US/Eastern'))
 
     def switch_back_to_main_screen(self, dt):
         self.sm.current = 'main'
