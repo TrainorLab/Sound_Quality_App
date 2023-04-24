@@ -78,18 +78,22 @@ class ScreenManagerApp(App):
         now = datetime.datetime.now(pytz.utc).astimezone(pytz.timezone('US/Eastern'))
         if platform.system() == 'Windows':
             base_dir = 'C:\\AppData\\Android\\SoundQualityApp'
+            filename = os.path.join(base_dir, 'responses_{}.json'.format(now.strftime('%Y-%m-%d_%H-%M-%S')))
+
         elif platform.system() == 'Android':
-            base_dir = '/storage/emulated/0/SoundQualityApp'
+            base_dir = '\\Internal storage\\Android\\'
         else:
-            # Add handling for other platforms if needed
+            print("<<<<<<<<<<<<<<", platform.system(), ">>>>>>>>>>>>>>>>>>")
+            from android.permissions import Permission, request_permissions, check_permission
+            from android.storage import app_storage_path, primary_external_storage_path, secondary_external_storage_path
+
+            request_permissions([Permission.WRITE_EXTERNAL_STORAGE])
+            print("<<<<<<<<<<<<<<", primary_external_storage_path(), ">>>>>>>>>>>>>>>>>>")
+            filename = os.path.join(primary_external_storage_path(), 'responses_{}.json'.format(now.strftime('%Y-%m-%d_%H-%M-%S')))
             pass
-        
-        # Create the filename with timestamp
-        filename = os.path.join(base_dir, 'responses_{}.json'.format(now.strftime('%Y-%m-%d_%H-%M-%S')))
-        
+
         store = JsonStore(filename)
         store.put('naturalness', value=self.slider1.value)
-        
         store.put('sound_quality', value=self.slider2.value)
         self.sm.current = 'response'
         Clock.schedule_once(self.switch_back_to_main_screen, self.get_next_update_time())
