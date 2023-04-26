@@ -28,7 +28,7 @@ fullscreen = 1
 android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE
 
 # (add this line)
-android.arch = arm64-v8a
+android.arch = armeabi-v7a, arm64-v8a, x86
 
 # (add this line)
 android.api = 31
