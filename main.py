@@ -24,18 +24,20 @@ class ResponseScreen(Screen):
 class ScreenManagerApp(App):
     def build(self):
         
+        global_font_size1 = 55
+        global_font_size2 = 40
         red = [1, 0, 0, 1] 
         green = [0, 1, 0, 1]
 
         #Create all text labels and sliders
         self.slider1 = Slider(min=1, max=5, value=3)
         self.slider2 = Slider(min=1, max=5, value=3)
-        self.q1_text = Label(text='Please rate the previous 5 minutes on "naturalness" on a scale from 1-5', font_size = 24)     
-        self.q1_left_anchor = Label(text='1 (Least Natural)', halign = "left", valign = "bottom", font_size = 24)
-        self.q1_right_anchor = Label(text='5 (Most Natural)', halign = "right", valign = "bottom", font_size = 24)
-        self.q2_text = Label(text='Please rate the previous 5 minutes on "sound quality" on a scale from 1-5', font_size = 24)
-        self.q2_left_anchor = Label(text='1 (Worst)', halign = "left", valign = "bottom", font_size = 24)
-        self.q2_right_anchor = Label(text='5 (Best)', halign = "right", valign = "bottom", font_size = 24)
+        self.q1_text = Label(text='Please rate the previous 5 minutes on \n "naturalness" on a scale from 1-5', font_size = global_font_size1)     
+        self.q1_left_anchor = Label(text='1 (Least Natural)', halign = "left", valign = "bottom", font_size = global_font_size2)
+        self.q1_right_anchor = Label(text='5 (Most Natural)', halign = "right", valign = "bottom", font_size = global_font_size2)
+        self.q2_text = Label(text='Please rate the previous 5 minutes on \n "sound quality" on a scale from 1-5', font_size = global_font_size1)
+        self.q2_left_anchor = Label(text='1 (Worst)', halign = "left", valign = "bottom", font_size = global_font_size2)
+        self.q2_right_anchor = Label(text='5 (Best)', halign = "right", valign = "bottom", font_size = global_font_size2)
 
         #Vertical Layout for Question 1, add to box q1
         self.q1 = BoxLayout(orientation='vertical', size_hint=(1,1))
@@ -55,7 +57,7 @@ class ScreenManagerApp(App):
         self.q2_anchors.add_widget(self.q2_left_anchor)
         self.q2_anchors.add_widget(self.q2_right_anchor)
 
-        self.button = Button(text='Submit', on_press=self.go_to_confirm_screen, size_hint = (1,.5), font_size = 24)
+        self.button = Button(text='Submit', on_press=self.go_to_confirm_screen, size_hint = (1,.5), font_size = 100)
         
         self.main_screen = MainScreen(name='main')
         self.main_screen_layout = BoxLayout(orientation='vertical')
@@ -72,7 +74,7 @@ class ScreenManagerApp(App):
 
         self.confirm_screen = ConfirmScreen(name='confirm')
         self.confirm_screen_layout = BoxLayout(orientation = 'vertical')
-        self.confirm_q = Label(text = "Are you sure you wish to submit your ratings?", font_size = 34)
+        self.confirm_q = Label(text = "Are you sure you wish to submit your ratings?", font_size = global_font_size1)
         self.confirm_yes_button = Button(text='Yes', on_press=self.submit, size_hint = (.25,.25), background_color = green)
         self.confirm_no_button = Button(text='No', on_press=self.switch_back_to_main_screen, size_hint = (.25,.25), background_color = red)
         
@@ -87,7 +89,7 @@ class ScreenManagerApp(App):
         self.confirm_screen.add_widget(self.confirm_screen_layout)
 
         self.response_screen = ResponseScreen(name='response')
-        self.response_label = Label(text='Thank you for your response. \n Please wait until the rating sliders appear again.', pos_hint={'center_x': 0.5, 'center_y': 0.5}, font_size = 34, halign = 'center')
+        self.response_label = Label(text='Thank you for your response. \n Please wait until the rating sliders appear again.', pos_hint={'center_x': 0.5, 'center_y': 0.5}, font_size = global_font_size2, halign = 'center')
         self.response_screen.add_widget(self.response_label)
         self.sm = ScreenManager()
         self.sm.add_widget(self.main_screen)
