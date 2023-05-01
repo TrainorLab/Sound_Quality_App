@@ -24,35 +24,35 @@ class ScreenManagerApp(App):
         #Create all text labels and sliders
         self.slider1 = Slider(min=1, max=5, value=3)
         self.slider2 = Slider(min=1, max=5, value=3)
-        self.q1_text = Label(text='Please rate the previous 5 minutes on "naturalness" on a scale from 1-5', size_hint_y=None, height=20)     
-        self.q1_left_anchor = Label(text='1 (Least Natural)', halign = "left", valign = "bottom")
-        self.q1_right_anchor = Label(text='5 (Most Natural)', halign = "right", valign = "bottom")
-        self.q2_text = Label(text='Please rate the previous 5 minutes on "sound quality" on a scale from 1-5', size_hint_y=None, height=20)
-        self.q2_left_anchor = Label(text='1 (Worst)', halign = "left", valign = "bottom")
-        self.q2_right_anchor = Label(text='5 (Best)', halign = "right", valign = "bottom")
+        self.q1_text = Label(text='Please rate the previous 5 minutes on "naturalness" on a scale from 1-5', font_size = 24)     
+        self.q1_left_anchor = Label(text='1 (Least Natural)', halign = "left", valign = "bottom", font_size = 24)
+        self.q1_right_anchor = Label(text='5 (Most Natural)', halign = "right", valign = "bottom", font_size = 24)
+        self.q2_text = Label(text='Please rate the previous 5 minutes on "sound quality" on a scale from 1-5', font_size = 24)
+        self.q2_left_anchor = Label(text='1 (Worst)', halign = "left", valign = "bottom", font_size = 24)
+        self.q2_right_anchor = Label(text='5 (Best)', halign = "right", valign = "bottom", font_size = 24)
 
         #Vertical Layout for Question 1, add to box q1
-        self.q1 = BoxLayout(orientation='vertical', size_hint_y=None, height=30)
+        self.q1 = BoxLayout(orientation='vertical', size_hint=(1,1))
         self.q1.add_widget(self.q1_text)
         
         #Horizontal layout for q1 anchors, 
-        self.q1_anchors = BoxLayout(orientation = 'horizontal', size_hint_y=None, height=10)   
+        self.q1_anchors = BoxLayout(orientation = 'horizontal', size_hint=(1,.25))   
         self.q1_anchors.add_widget(self.q1_left_anchor)
         self.q1_anchors.add_widget(self.q1_right_anchor)
 
-        self.q1_to_q2 = BoxLayout(orientation = 'vertical')
+        self.q1_to_q2 = BoxLayout(orientation = 'vertical', size_hint=(1,1))
         self.q1_to_q2.add_widget(self.slider1)
         self.q1_to_q2.add_widget(self.q2_text)
 
 
-        self.q2_anchors = BoxLayout(orientation='horizontal', size_hint_y=None, height=30)
+        self.q2_anchors = BoxLayout(orientation='horizontal', size_hint=(1,.25))
         self.q2_anchors.add_widget(self.q2_left_anchor)
         self.q2_anchors.add_widget(self.q2_right_anchor)
 
-        self.button = Button(text='Submit', on_press=self.submit, size = (50,50))
+        self.button = Button(text='Submit', on_press=self.submit, size_hint = (1,.5), font_size = 24)
         
         self.main_screen = MainScreen(name='main')
-        self.main_screen_layout = BoxLayout(orientation='vertical', spacing=50)
+        self.main_screen_layout = BoxLayout(orientation='vertical')
         
         
         self.main_screen_layout.add_widget(self.q1)
@@ -64,7 +64,7 @@ class ScreenManagerApp(App):
         
         self.main_screen.add_widget(self.main_screen_layout)
         self.response_screen = ResponseScreen(name='response')
-        self.response_label = Label(text='Thank you for your response.', size_hint=(0.5, 0.5), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        self.response_label = Label(text='Thank you for your response. \n Please wait until the rating sliders appear again.', pos_hint={'center_x': 0.5, 'center_y': 0.5}, font_size = 34, halign = 'center')
         self.response_screen.add_widget(self.response_label)
         self.sm = ScreenManager()
         self.sm.add_widget(self.main_screen)
@@ -118,6 +118,6 @@ class ScreenManagerApp(App):
         next_update = now + datetime.timedelta(minutes=5 - now.minute % 5, seconds=-now.second, microseconds=-now.microsecond)
         time_to_next_update = (next_update - now).total_seconds()
         return time_to_next_update
-
+        
 if __name__ == '__main__':
     ScreenManagerApp().run()
