@@ -15,12 +15,18 @@ import platform
 class MainScreen(Screen):
     pass
 
+class ConfirmScreen(Screen):
+    pass
+
 class ResponseScreen(Screen):
     pass
 
 class ScreenManagerApp(App):
     def build(self):
         
+        red = [1, 0, 0, 1] 
+        green = [0, 1, 0, 1]
+
         #Create all text labels and sliders
         self.slider1 = Slider(min=1, max=5, value=3)
         self.slider2 = Slider(min=1, max=5, value=3)
@@ -49,7 +55,7 @@ class ScreenManagerApp(App):
         self.q2_anchors.add_widget(self.q2_left_anchor)
         self.q2_anchors.add_widget(self.q2_right_anchor)
 
-        self.button = Button(text='Submit', on_press=self.submit, size_hint = (1,.5), font_size = 24)
+        self.button = Button(text='Submit', on_press=self.go_to_confirm_screen, size_hint = (1,.5), font_size = 24)
         
         self.main_screen = MainScreen(name='main')
         self.main_screen_layout = BoxLayout(orientation='vertical')
@@ -63,11 +69,29 @@ class ScreenManagerApp(App):
         self.main_screen_layout.add_widget(self.button)
         
         self.main_screen.add_widget(self.main_screen_layout)
+
+        self.confirm_screen = ConfirmScreen(name='confirm')
+        self.confirm_screen_layout = BoxLayout(orientation = 'vertical')
+        self.confirm_q = Label(text = "Are you sure you wish to submit your ratings?", font_size = 34)
+        self.confirm_yes_button = Button(text='Yes', on_press=self.submit, size_hint = (.25,.25), background_color = green)
+        self.confirm_no_button = Button(text='No', on_press=self.switch_back_to_main_screen, size_hint = (.25,.25), background_color = red)
+        
+        self.confirm_text_layout = BoxLayout(orientation = 'vertical')
+        self.confirm_text_layout.add_widget(self.confirm_q)
+        self.confirm_buttons = BoxLayout(orientation = 'horizontal')
+        self.confirm_buttons.add_widget(self.confirm_yes_button)
+        self.confirm_buttons.add_widget(self.confirm_no_button)
+        self.confirm_screen_layout = BoxLayout(orientation = 'vertical')
+        self.confirm_screen_layout.add_widget(self.confirm_text_layout)
+        self.confirm_screen_layout.add_widget(self.confirm_buttons)
+        self.confirm_screen.add_widget(self.confirm_screen_layout)
+
         self.response_screen = ResponseScreen(name='response')
         self.response_label = Label(text='Thank you for your response. \n Please wait until the rating sliders appear again.', pos_hint={'center_x': 0.5, 'center_y': 0.5}, font_size = 34, halign = 'center')
         self.response_screen.add_widget(self.response_label)
         self.sm = ScreenManager()
         self.sm.add_widget(self.main_screen)
+        self.sm.add_widget(self.confirm_screen)
         self.sm.add_widget(self.response_screen)
         Clock.schedule_once(self.show_app, self.get_next_update_time())
         return self.sm
@@ -112,6 +136,9 @@ class ScreenManagerApp(App):
 
     def switch_back_to_main_screen(self, dt):
         self.sm.current = 'main'
+
+    def go_to_confirm_screen(self, dt):
+        self.sm.current = 'confirm'
 
     def get_next_update_time(self):
         now = datetime.datetime.now(pytz.utc).astimezone(pytz.timezone('US/Eastern'))
