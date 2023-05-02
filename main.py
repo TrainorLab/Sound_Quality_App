@@ -24,8 +24,9 @@ class ResponseScreen(Screen):
 class ScreenManagerApp(App):
     def build(self):
         
-        global_font_size1 = 55
-        global_font_size2 = 40
+        #huawei sizes (55, 40)
+        global_font_size1 = 40
+        global_font_size2 = 32
         red = [1, 0, 0, 1] 
         green = [0, 1, 0, 1]
 
